@@ -1,3 +1,4 @@
+// se obtiene el carrito de productos desde el localstorage
 let carritoProductos = JSON.parse(localStorage.carrito_productos);
 
 const cartVacio = document.querySelector("#cart__Vacio");
@@ -8,6 +9,7 @@ const buttonEmpty = document.querySelector("#cart__elementos--borrar")
 const total = document.querySelector("#total")
 const buttonBuy = document.querySelector(".cart__elementos--comprar")
 
+// funcion para mostrar los productos en el carrito
 function mostrarProductosCart() {
     cartProductos.innerHTML = "";
 
@@ -60,6 +62,8 @@ function mostrarProductosCart() {
 }
 mostrarProductosCart();
 
+
+// funcion para actualizar los event listeners de los botones de eliminar de cada producto
 function buttonRemoveRemake() {
 
     buttonRemove = document.querySelectorAll(".cart__productos--borrar")
@@ -70,7 +74,7 @@ function buttonRemoveRemake() {
 }
 
 
-
+// funcion para eliminar un producto del carrito
 function eliminarProducto(e) {
     const idBoton = e.currentTarget.id;
     const indiceProducto = carritoProductos.findIndex(producto => producto.id === idBoton);
@@ -89,9 +93,10 @@ function eliminarProducto(e) {
         mostrarProductosCart();
     }
 }
-
+//agrego un event listener al buttonEmpty
 buttonEmpty.addEventListener("click", borrarCarrito);
 
+// funcion para eliminar todos los productos del carrito 
 function borrarCarrito() {
 
     carritoProductos = [];
@@ -101,12 +106,16 @@ function borrarCarrito() {
     mostrarProductosCart();
 }
 
+// funcion para actualizar el precio total
 function totalRemake() {
     let totalPrecio = carritoProductos.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
     total.innerText = `$${totalPrecio}`;
 }
 
+//agrego un event listener al buttonBuy
 buttonBuy.addEventListener("click", buy);
+
+//funcion para comprar productos y que aparezca una alterta de la lbireria sweet alert
 function buy() {
     carritoProductos.length = 0;
     localStorage.setItem("carrito_productos", JSON.stringify(carritoProductos));

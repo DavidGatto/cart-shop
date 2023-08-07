@@ -1,3 +1,4 @@
+// clase constructora 
 class Producto {
     constructor(id, titulo, imagen, categoria, precio) {
       this.id = id;
@@ -110,6 +111,8 @@ const tituloCategorias = document.querySelector("#titulo__principal")
 let buttonAdd = document.querySelectorAll(".productos__button--add")
 const numeroCart = document.querySelector("#numeroCart")
 
+
+// funcion para mostrar los productos en el contenedor segun la categoria seleccionada
 function mostrarProductos(elegirProductos) {
     contenedorProductos.innerHTML = "";
     elegirProductos.forEach (producto => {
@@ -146,6 +149,7 @@ else{
 })  
 })
 
+// funcion para actualizar los event listeners de los botones para agregar al carrito
 function buttonAddRemake(){
     buttonAdd = document.querySelectorAll(".productos__button--add");
 
@@ -154,6 +158,7 @@ buttonAdd.forEach(boton => {
 })
 }
 
+// se inicia un carrito vacio o recupera el carrito desde el localstorage
 let carritoProductos;
 const carritoProductosRemake = JSON.parse(localStorage.getItem('carrito_productos')) || [];
 if (carritoProductosRemake){
@@ -163,7 +168,7 @@ if (carritoProductosRemake){
     carritoProductos = [];
 }
 
-
+// funcion para agregar un producto al carrito cuando se hace clic en el boton
 function agregarCarrito(e) {
     const buttonId = e.currentTarget.id;
     const productoSeleccionado = carritoProductos.find(producto => producto.id === buttonId);
@@ -181,7 +186,7 @@ function agregarCarrito(e) {
     localStorage.carrito_productos = JSON.stringify(carritoProductos);
   }
 
-
+// funcion para actualizar el contador de productos en el carrito 
 function numeroActualizado() {
     let nuevoNumeroCart = carritoProductos.reduce((acc, producto) => acc + producto.cantidad, 0);
     numeroCart.innerText = nuevoNumeroCart
